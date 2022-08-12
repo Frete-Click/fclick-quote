@@ -60,6 +60,7 @@ class Quote
         $config->setOrder('total');
         $config->setNoRetrieve(true);
         $config->setDenyCarriers(null);
+        $config->setDomain(null);
         $quote_request->setConfig($config); 
         
 

@@ -10,6 +10,7 @@ class Config{
 	protected $no_retrieve = false;
 	protected $app_type = '';
 	protected $deny_carriers = null;
+	protected $domain = null;
 
 
 	public function getOrder(){
@@ -66,6 +67,17 @@ class Config{
 	public function getDenyCarriers()
 	{
 		return $this->deny_carriers;
+	}
+
+	public function setDomain($domain)
+	{
+		$this->domain = $domain;
+		return $this;
+	}
+
+	public function getDomain()
+	{
+		return $this->domain;
 	}
 
 }

@@ -2,17 +2,17 @@
     "packages": [
         {
             "name": "freteclick/sdk",
-            "version": "v1.2.23",
-            "version_normalized": "1.2.23.0",
+            "version": "v1.2.24",
+            "version_normalized": "1.2.24.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Frete-Click/SDK.git",
-                "reference": "89fd1df73422abf2014346b176fefb2f39172ca3"
+                "reference": "69abddcdb71d86d490a6038bb04b78194f697c20"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Frete-Click/SDK/zipball/89fd1df73422abf2014346b176fefb2f39172ca3",
-                "reference": "89fd1df73422abf2014346b176fefb2f39172ca3",
+                "url": "https://api.github.com/repos/Frete-Click/SDK/zipball/69abddcdb71d86d490a6038bb04b78194f697c20",
+                "reference": "69abddcdb71d86d490a6038bb04b78194f697c20",
                 "shasum": ""
             },
             "require": {
@@ -20,7 +20,7 @@
                 "guzzlehttp/guzzle": "~6.3",
                 "php": ">=7.2"
             },
-            "time": "2022-06-25T23:49:37+00:00",
+            "time": "2022-08-12T14:29:57+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -45,7 +45,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Frete-Click/SDK/issues",
-                "source": "https://github.com/Frete-Click/SDK/tree/v1.2.23"
+                "source": "https://github.com/Frete-Click/SDK/tree/v1.2.24"
             },
             "install-path": "../freteclick/sdk"
         },
