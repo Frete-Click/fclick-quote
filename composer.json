@@ -1,0 +1,7 @@
+{
+
+    "title": "wp-cota-facil",
+    "require": {
+        "freteclick/sdk": "v1.2.23"
+    }
+}

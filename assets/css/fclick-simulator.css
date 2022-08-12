@@ -1,0 +1,50 @@
+#wpcfc-content{
+    box-shadow: 0 1px 5px rgb(0 0 0 / 20%), 0 2px 2px rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%);
+    background-color: #fff;
+    overflow: hidden;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    border-radius: 10px;
+}
+.wpfc-header{
+    text-align: center;
+}
+.wpfc-header h2, .wpfc-header h4{
+    color: rgb(0, 0, 0);
+}
+
+.wpfc-box-control{
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+.wpfc-box-control input[type='text'], .wpfc-box-control input[type="number"], .wpfc-box-control select{
+    width: 100%;
+    border: none;
+    background-color: #fff;
+    box-shadow: none;
+    padding: 12px;
+}
+.wpfc-box-control label{
+    padding-left: 10px;
+}
+.product-data{
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#btnquote{
+    background-color: rgb(253, 147, 0);
+    padding: 10px;
+    border: none;
+    color: #fff;
+    border-radius: 4px;
+    margin-top: 20px;
+}
+#btnquote:hover{
+    background-color: #0b2349;
+    cursor: pointer;
+}
