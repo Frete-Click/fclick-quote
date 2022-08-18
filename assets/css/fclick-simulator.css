@@ -41,6 +41,10 @@
     color:#000000;
     width: 50px;
 }
+.text-label{
+    text-align: left !important;
+    font-weight:600;
+}
 
 .product-data{
     text-align: center;
