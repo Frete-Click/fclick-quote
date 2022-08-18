@@ -57,18 +57,17 @@
 
 .box-product-data{
     overflow: hidden;
-    border-radius: 15px;
+    padding: 7px;
+    border: 1px solid #e2e2e2;
 }
 
 .text-center{
     text-align: center;
     padding-top: 15px;
     padding-bottom: 15px;
+    font-weight: 600;
 }
-.text-center h4{
-    font-weight: 700;
-    margin-bottom: 10px;
-}
+
 
 #btnquote{
     box-shadow: 0 6px 6px -3px rgb(0 0 0 / 20%), 0 10px 14px 1px rgb(0 0 0 / 14%), 0 4px 18px 3px rgb(0 0 0 / 12%);
