@@ -5,6 +5,7 @@ function formatPrice(price) {
 function addCarrirToList(image, deadline, price){
 
     $('.popup-cover').addClass('wrap-quotes')
+    $('#btnclousemodal').css('display', 'block')
 
     const html =  '<div class="dms-col-12 dms-col-xs-6 dms-col-sm-4 dms-col-md-3 dms-col-lg-3 dms-col-xl-3"> <div class="wpfc-box-quote"> <div class="box-quote-image"> <img src="https://' + image + '" /> </div> <div class="box-quote"> <div class="box-info"><span id="deadline"> Coleta em até '+ deadline  +' dias uteis</span><h4>' + formatPrice( price ) + '</h4> <button type="submit" id="btn-contratar">CONTRATAR</button> </div> </div> </div> </div>'
 
