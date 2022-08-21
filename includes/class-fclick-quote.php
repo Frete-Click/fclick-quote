@@ -95,6 +95,26 @@ class Quote
             self::add_error('Endereco de entrega incorreto!', false);
         }
 
+        if(empty($_POST['custumer-name'])){
+            self::add_error('Informe seu nome completo!');
+        }
+
+        if(empty($_POST['custumer-email'])){
+            self::add_error('Informe seu melhor e-mail!');
+        }
+
+        if(empty($_POST['custumer-phone'])){
+            self::add_error('Informe seu telefone');
+        }
+
+        $contact = array(
+            'name' => $_POST['custumer-name'],
+            'email' => $_POST['custumer-email'],
+            'phone' => self::format_number( $_POST['custumer-phone'] )
+        );
+
+        $quote_request->setContact($contact);
+
         $origin = new Origin;			
         $origin->setCity($retriver_address['city']);
         $origin->setState($retriver_address['state']);

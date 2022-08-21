@@ -12,11 +12,17 @@
           <div class="dms-col-xs-12 dms-col-sm-4 dms-col-md-4 dms-col-lg-4 dms-col-xl-4">
                <div class="wpfc-box-control">
                     <input type="text" class="phone_with_ddd" id="custumer-phone" name="custumer-phone" placeholder="Telefone">
+                    <div class="wrap-spin-in">
+                         <div class="spin-in"></div>
+                    </div>
                </div>    
           </div>
           <div class="dms-col-xs-12 dms-col-sm-4 dms-col-md-4 dms-col-lg-4 dms-col-xl-4">
                <div class="wpfc-box-control">
                     <input type="text" id="custumer-name" name="custumer-name" placeholder="Nome completo">
+                    <div class="wrap-spin-in">
+                         <div class="spin-in"></div>
+                    </div>
                </div>
           </div>
           <div class="dms-col-xs-12 dms-col-sm-6 dms-col-md-6 dms-col-lg-6 dms-col-xl-6">
@@ -90,24 +96,27 @@
                </div>
           </div>
 
-          <div class="dms-col-xs-12 dms-col-sm-12 dms-col-md-12 dms-col-lg-12 dms-col-xl-12">
-               <div class="text-center">
-                    <input type="submit" name="submit" id="btnquote" value="FAZER COTAÇÃO DE FRETE">
-               </div>
+          <div class="wrap-btn-quote">
+               <input type="submit" name="submit" id="btnquote" class="btn-quote" value="FAZER COTAÇÃO DE FRETE">
           </div>
     </form>
-     <!--Show loading-->
-    <div class="loading">
-          <div id="loader-1"></div>
-          <div id="loader-2"></div>
-     </div>  
+
 </div>
+
+
 <div id="modal" class="popup-overlay">
      <div class="popup-cover">
-          <div class="close_pop"><span onclick="clouse_modal()">X</span></div>
+          <div class="popup-header">
+               <div class="quote-num"></div>
+               <div class="close_pop"><span onclick="clouse_modal()">X</span></div>
+          </div>
           
-          <div id="listing-quotes"></div>
-
-          <button id="btnclousemodal" onclick="clouse_modal()">RETORNAR AOS DADOS DA COTAÇÃO</button>
+          <div class="popup-section-qrap">
+               <div id="listing-quotes" class="popup-section"></div>
+          </div>
+          <!--end section-->
+          <div class="popup-footer">
+               <button id="btnclousemodal" onclick="clouse_modal()">RETORNAR AOS DADOS DA COTAÇÃO</button>
+          </div>
      </div>
 </div>

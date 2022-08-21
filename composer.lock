@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "17aa87386446916f82a7c4260c94eafd",
+    "content-hash": "d5bb42e32f339b5af1b27cda8b75666c",
     "packages": [
         {
             "name": "freteclick/sdk",
-            "version": "v1.2.24",
+            "version": "v1.2.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Frete-Click/SDK.git",
-                "reference": "69abddcdb71d86d490a6038bb04b78194f697c20"
+                "reference": "86507283e16d9ac02ed31c493dcd53d050bdf4f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Frete-Click/SDK/zipball/69abddcdb71d86d490a6038bb04b78194f697c20",
-                "reference": "69abddcdb71d86d490a6038bb04b78194f697c20",
+                "url": "https://api.github.com/repos/Frete-Click/SDK/zipball/86507283e16d9ac02ed31c493dcd53d050bdf4f2",
+                "reference": "86507283e16d9ac02ed31c493dcd53d050bdf4f2",
                 "shasum": ""
             },
             "require": {
@@ -48,9 +48,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Frete-Click/SDK/issues",
-                "source": "https://github.com/Frete-Click/SDK/tree/v1.2.24"
+                "source": "https://github.com/Frete-Click/SDK/tree/v1.2.25"
             },
-            "time": "2022-08-12T14:29:57+00:00"
+            "time": "2022-08-18T16:10:32+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",

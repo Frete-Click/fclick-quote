@@ -47,6 +47,17 @@ class QuoteRequest{
 		return $this->contact;
 	}
 
+	public function setContact(array $contact){
+		
+		$this->contact = array(
+			"email" => $contact['email'],
+			"name" => $contact['name'],
+			"phone" => $contact['phone']
+		);
+
+		return $this;
+	}
+
 	public function getConfig(){
 		if (!$this->config){
 			$this->config = new Config();
