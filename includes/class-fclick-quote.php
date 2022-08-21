@@ -17,7 +17,6 @@ class Quote
         wp_enqueue_script('jquery.mask', plugins_url('assets/js/jquery.mask.min.js', plugin_dir_path(__FILE__)), array('jquery'), null, true);
         wp_enqueue_script('axios', 'https://unpkg.com/axios/dist/axios.min.js');
         
-        wp_enqueue_style('fclick-grid', plugins_url('assets/css/fclick-grid.css', plugin_dir_path(__FILE__)));
         wp_enqueue_style('fclick-simulator', plugins_url('assets/css/fclick-simulator.css', plugin_dir_path(__FILE__)));
         wp_enqueue_style('fclick-modal', plugins_url('assets/css/fclick-modal.css', plugin_dir_path(__FILE__)));
 

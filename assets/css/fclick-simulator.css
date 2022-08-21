@@ -1,20 +1,67 @@
+/*Display Grid*/
+.box-col-2{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.box-col-3{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.box-col-6{
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.box-header{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+}
+
+
+@media (max-width: 980px) { 
+    .box-col-2{
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+    .box-col-3{
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+    .box-col-6{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+}
+@media (max-width: 640px) {
+    .box-col-6{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+} 
+
 #wpcfc-content{
     box-shadow: 0 1px 5px rgb(0 0 0 / 20%), 0 2px 2px rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%);
     background-color: #fff;
     overflow: hidden;
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-bottom: 15px;
-    padding-top: 30px;
+    padding: 12px;
     border-radius: 10px;
-}
-
-.wpfc-header{
-    text-align: center;
-}
-.wpfc-header h2, .wpfc-header h4{
-    color: rgb(0, 0, 0);
-    font-weight: 700;
 }
 
 .wpfc-box-control{
@@ -59,20 +106,20 @@
 }
 
 .box-product-data{
-    overflow: hidden;
-    padding: 7px;
+    display: flex;
+    padding: 12px;
     border: 1px solid #e2e2e2;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
 }
-
-.text-center{
-    text-align: center;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    font-weight: 600;
+.box-product-data h4{
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
 }
-
-
-
 
 .quote-erros{
     border: 1px solid #ff0000;
@@ -113,6 +160,7 @@
     background-color: #000000;
     padding: 9px;
     display:none;
+    border: none;
 }
 .spin-input{
     padding: 9px;
