@@ -3,7 +3,7 @@
           <h1>COTAÇÃO DE FRETE</h1> 
           <p>Preencha os campos abaixo para sua cotação</p> 
      </div>
-    <form method="post">
+    <form method="post" id="form-quote">
           <div class="box-col-3">
                <div class="wpfc-box-control">
                     <input type="text" id="custumer-email" name="custumer-email" placeholder="E-mail">
@@ -68,7 +68,7 @@
                          <div class="form-control">
                               <span class="text-label">Peso por volume</span>
                               <div class="wpfc-box-control">
-                                   <input type="text" class="product_kg" id="product-weight" name="product-weight" placeholder="0,000 kg" required> 
+                                   <input type="text" tabindex="0" aria-label="Peso" class="product_kg" id="product-weight" name="product-weight" placeholder="0,000 kg" required> 
                                    <div class="text-suffix">kg</div>
                               </div>
                          </div>
@@ -76,21 +76,21 @@
                               <span class="text-label">Altura</span>
                               <div class="wpfc-box-control">
                                    <input type="text" class="product-cm" id="product-height" name="product-height" placeholder="0,00 cm" required>
-                                   <div class="text-suffix">cm</div>
+                                   <div class="text-suffix">m</div>
                               </div>
                          </div>
                          <div class="form-control">
                               <span class="text-label">Largura</span>
                               <div class="wpfc-box-control">
                                    <input type="text" class="product-cm" id="product-width" name="product-width" placeholder="0,00 cm" required>
-                                   <div class="text-suffix">cm</div>
+                                   <div class="text-suffix">m</div>
                               </div>
                          </div>
                          <div class="form-control">
                               <span class="text-label">Comprimento</span>
                               <div class="wpfc-box-control">
                                    <input type="text" class="product-cm" id="product-depth" name="product-depth" placeholder="0,00 cm" required>
-                                   <div class="text-suffix">cm</div>
+                                   <div class="text-suffix">m</div>
                               </div>
                          </div>
                          

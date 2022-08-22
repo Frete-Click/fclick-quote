@@ -2,30 +2,6 @@ function formatPrice(price) {
     return price.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
  }
 
-function add_carrier_image(image_url){
-    return '<div class="box-image"><img src="https://'+ image_url +' " /></div>';
-}
-
-function add_carrier_price(price){
-    return '<div class="box-price"><h4>'+ formatPrice(price) +'</h4></div>';
-}
-
-function add_carrier_deadline(deadline){
-    return '<div class="box-delivery"><span>Entrega entre ' + deadline + ' e 4 dias úteis</span><p>(*após coletado)</p></div>';
-}
-
-function add_carrier_retriver(retrive){
-    html = '<div class="box-coleta"><span> Coleta em até ' + retrive + ' dias uteis</span></div>';
-
-    /*
-    <div class="box-no-retriver">
-        <span>Sem Coleta (Entregar no Balcão)</span>
-    </div>
-    */
-
-    return html;
-}
-
 function add_carrier_quote_id(quote_id){
     var el = document.createElement('h4');
     el.setAttribute('class', '.quote-num');
@@ -35,14 +11,78 @@ function add_carrier_quote_id(quote_id){
     return  $('.quote-num').html(el)
 }
 
-function addCarrirToList(image, deadline, price, retrive){
+function addCarrirToList(image, deadline, price, retrieveDeadline){
 
     $('.popup-cover').addClass('wrap-quotes')
     $('#btnclousemodal').css('display', 'block')
 
-    const html = '<div class="box-quote">' + add_carrier_image(image) + '<div class="box-info">' + add_carrier_retriver(retrive) + add_carrier_deadline(deadline) + add_carrier_price(price) + '<button class="btn-contratar" type="submit">CONTRATAR</button></div></div>' 
+    //box
+    let box_quote = document.createElement('div');
+    box_quote.setAttribute('class', 'box-quote');
 
-    return html;
+    //image
+    let box_image = document.createElement('div');
+    box_image.setAttribute('class', 'box-image');
+    box_quote.append(box_image);
+
+    let itemimg = document.createElement('img');
+    itemimg.setAttribute('src', 'https://'+ image)
+    box_image.append(itemimg);
+
+    //box info
+    let box_info = document.createElement('div');
+    box_info.setAttribute('class', 'box-info');
+
+    box_quote.append(box_info);
+
+    //box coleta
+    let box_coleta = document.createElement('div');
+    box_coleta.setAttribute('class', 'box-coleta');
+    box_info.append(box_coleta);
+
+    let coleta_span = document.createElement('span');
+    let coleta_text = document.createTextNode('Coleta em até ' + retrieveDeadline + ' dias uteis');
+    coleta_span.append(coleta_text);
+    box_coleta.append(coleta_span);
+
+
+    //box-delivery
+    let box_delivery = document.createElement('div');
+    box_delivery.setAttribute('class', 'box-delivery');
+
+    let delivery_span = document.createElement('span');
+    let text_delivery = document.createTextNode('Entrega entre ' + deadline + ' e 4 dias úteis');
+    delivery_span.append(text_delivery);
+
+    let delivery_p = document.createElement('p');
+    let text_delivery2 = document.createTextNode('(*após coletado)');
+    delivery_p.append(text_delivery2);
+
+    box_delivery.append(delivery_span);
+
+    box_info.append(box_delivery);
+
+    //box price
+    let box_price = document.createElement('div');
+    box_price.setAttribute('class', 'box-price');
+
+    let price_h4 = document.createElement('h4');
+    let price_text = document.createTextNode(price);
+    price_h4.append(price_text);
+    box_price.append(price_h4);
+
+    box_info.append(box_price);
+
+    //<button class="btn-contratar" type="submit">CONTRATAR</button>
+    let button = document.createElement('button');
+    button.setAttribute('type', 'submit');
+    button.setAttribute('class', 'btn-contratar');
+    let button_text = document.createTextNode('CONTRATAR');
+    button.append(button_text);
+
+    box_info.append(button);
+
+    $('#listing-quotes').append(box_quote);
 
 }
 
@@ -101,6 +141,21 @@ function addError(message){
     return $('#listing-quotes').html('<div id="error-pop">' + message + '</div>')
 }
 
+function convert_kg(kg){
+    return kg.replace(/[^0-9]/g, '' )/ 1000.0;
+}
+
+function convert_m(m){
+    return m.replace(/[^0-9]/g, '' )/ 100.0;
+}
+
+function convert_price(price){
+
+    price = price.replace('.', '');
+    price = price.replace(',', '.');
+    return price;
+}
+
 function form_data(){
     const data_form = {
         'action': 'get_quotes',
@@ -111,12 +166,13 @@ function form_data(){
         'cep_delivery': $('#cep_delivery').val(),
         'product-category': $('#product-category').val(),
         'product-type': $('#product-type').val(),
-        'product-invoice-total': $('#product-invoice-total').val(),
+        
+        'product-invoice-total': convert_price( $('#product-invoice-total').val() ),
         'product-quantity': $('#product-quantity').val(),
-        'product-weight': $('#product-weight').val(),
-        'product-height': $('#product-height').val(),
-        'product-width': $('#product-width').val(),
-        'product-depth': $('#product-depth').val()
+        'product-weight':   convert_kg( $('#product-weight').val() ),
+        'product-height':   convert_m( $('#product-height').val() ),
+        'product-width':    convert_m( $('#product-width').val() ),
+        'product-depth':    convert_m( $('#product-depth').val() )
     }
 
     return data_form
@@ -151,7 +207,7 @@ function get_quotes(){
             add_carrier_quote_id(res.response.data.order.id)
 
             $.each(res.response.data.order.quotes, function (index, val){
-                $('#listing-quotes').html(addCarrirToList(val['carrier']['image'], val['deliveryDeadline'], val['total'], val['retrieveDeadline']))
+                $('#listing-quotes').html(addCarrirToList(val['carrier']['image'], val['deliveryDeadline'], formatPrice(val['total']), val['retrieveDeadline']))
                 show_modal()
                 console.log(val['carrier']['alias'])
             });
@@ -269,6 +325,7 @@ function createElVolume(data = [], index, elnum){
     box_in.setAttribute('class', data[index]['input_class']);
     box_in.setAttribute('name', data[index]['input_name']+elnum);
     box_in.setAttribute('placeholder', data[index]['input_placeholder']);
+    box_in.setAttribute('data-value',  '1');
 
     box_control.append(box_in);
 
@@ -332,30 +389,30 @@ jQuery(document).ready(function ($) {
             },
             {
                 'textLabel': 'Altura',
-                'suffixText': 'cm',
+                'suffixText': 'm',
                 'input_type': 'text',
                 'input_name': 'product_height',
                 'input_id': 'product_height_',
                 'input_class': 'product-cm',
-                'input_placeholder': '0,00 cm'
+                'input_placeholder': '0,00 m'
             },
             {
                 'textLabel': 'Largura',
-                'suffixText': 'cm',
+                'suffixText': 'm',
                 'input_type': 'text',
                 'input_name': 'product_width_',
                 'input_id': 'product_width_',
                 'input_class': 'product-cm',
-                'input_placeholder': '0,00 cm'
+                'input_placeholder': '0,00 m'
             },
             {
                 'textLabel': 'Comprimento',
-                'suffixText': 'cm',
+                'suffixText': 'm',
                 'input_type': 'text',
                 'input_name': 'product_depth_',
                 'input_id': 'product_depth_',
                 'input_class': 'product-cm',
-                'input_placeholder': '0,00 cm'
+                'input_placeholder': '0,00 m'
             },
 
         ];
@@ -369,6 +426,7 @@ jQuery(document).ready(function ($) {
             createElVolume(form_inputs, i, contador)
         }
 
+        formatMask();
         contador++;
     
     });
@@ -382,7 +440,25 @@ jQuery(document).ready(function ($) {
         e.preventDefault();
 
         addLoader();
-        get_quotes();
+/*
+        console.log(
+            $('#product-invoice-total').val(),
+            $('#product-quantity').val(),
+            $('#product-weight').val(),
+            $('#product-height').val(),
+            $('#product-width').val(),
+            $('#product-depth').val()
+         );
+         */
+        
+        /*var x = $("#form-quote").serializeArray();
+        $.each(x, function(i, field){
+
+            console.log(field)
+          //$("#listing-quotes").append(field.name + ":" + field.value + " ");
+        });*/
+
+      get_quotes();
 
     })
 })

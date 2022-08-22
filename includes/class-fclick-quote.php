@@ -151,12 +151,12 @@ class Quote
 
         $package = new Package();
         $package->setQuantity($_POST['product-quantity']);
-        $package->setWeight(self::format_number( $_POST['product-weight'] ) / 1000);
-        $package->setHeight(self::format_number( $_POST['product-height'] ) / 100);  // /100
-        $package->setWidth(self::format_number( $_POST['product-width'] ) / 100);  // /100
-        $package->setDepth(self::format_number( $_POST['product-depth'] ) /100 );  // /100
+        $package->setWeight( $_POST['product-weight']);
+        $package->setHeight( $_POST['product-height']); 
+        $package->setWidth($_POST['product-width']);  
+        $package->setDepth( $_POST['product-depth']);  
         $package->setProductType($_POST['product-type']);
-        $package->setProductPrice(self::format_number( $_POST['product-invoice-total'] ));					
+        $package->setProductPrice($_POST['product-invoice-total']);					
         $quote_request->addPackage($package);	
 	
 
