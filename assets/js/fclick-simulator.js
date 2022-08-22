@@ -27,7 +27,12 @@ function add_carrier_retriver(retrive){
 }
 
 function add_carrier_quote_id(quote_id){
-    return  $('.quote-num').html('<h4>Cotação #'+ quote_id +'</h4>')
+    var el = document.createElement('h4');
+    el.setAttribute('class', '.quote-num');
+    var eltext = document.createTextNode("Cotação #" + quote_id);
+    el.append(eltext)
+
+    return  $('.quote-num').html(el)
 }
 
 function addCarrirToList(image, deadline, price, retrive){
@@ -41,11 +46,15 @@ function addCarrirToList(image, deadline, price, retrive){
 
 }
 
-function addOptions() {
-    const options = JSON.parse( ajax_cotafacil.options )
-
+function add_options() {
+    const options = JSON.parse( ajax_cotafacil.options );
+    
     for (let i = 0; i < options.length; i++) {
-        $('#product-category').append('<option value="' + options[i] + '">'+ options[i] + '</option>')
+        var el = document.createElement('option');
+        el.setAttribute('value', options[i]);
+        var text = document.createTextNode(options[i]);
+        el.append(text);
+        $('#product-category').append(el)
     }
 }
 
@@ -82,8 +91,8 @@ function formatMask(){
     $('.cep').mask('00000-000');
     $('.phone_with_ddd').mask('(00) 00000-0000');
     $('.money2').mask("#.##0,00", {reverse: true});
-    $('#product-weight').mask('##0,000', {reverse: true})
-    $('.product-cm').mask('##0,00', {reverse: true})
+    $('.product_kg').mask('##0,000', {reverse: true});
+    $('.product-cm').mask('##0,00', {reverse: true});
 }
 
 function addError(message){
@@ -237,13 +246,52 @@ function getPeopleIdByEmail() {
 
 }
 
+function createElVolume(data = [], index, elnum){
+
+    let form_control = document.createElement('div');
+    form_control.setAttribute('class', 'form-control');
+
+    let label = document.createElement('span');
+    label.setAttribute('class', 'text-label');
+    let label_text = document.createTextNode(data[index]['textLabel']);
+    
+    label.append(label_text)
+    form_control.append(label)
+
+    let box_control = document.createElement('div');
+    box_control.setAttribute('class', 'wpfc-box-control');
+
+    form_control.append(box_control);
+
+    let box_in = document.createElement('input');
+    box_in.setAttribute('type', data[index]['input_type']);
+    box_in.setAttribute('id', data[index]['input_id']+elnum);
+    box_in.setAttribute('class', data[index]['input_class']);
+    box_in.setAttribute('name', data[index]['input_name']+elnum);
+    box_in.setAttribute('placeholder', data[index]['input_placeholder']);
+
+    box_control.append(box_in);
+
+    let suffix = document.createElement('div');
+    suffix.setAttribute('class', 'text-suffix');
+
+    let suffix_text = document.createTextNode(data[index]['suffixText']);
+    suffix.append(suffix_text);
+
+    box_control.append(suffix)
+
+    $('#form_volumes_inputs_'+elnum).append(form_control);
+    
+}
+
+
 /**
  * JQuery ready document
  */
 jQuery(document).ready(function ($) {
     
     formatMask();
-    addOptions();
+    add_options();
 
     var typingTimer; 
     var doneTypingInterval = 1000; 
@@ -258,7 +306,78 @@ jQuery(document).ready(function ($) {
         }
     });
 
- 
+    var contador = 0;
+
+    $('.form-volumes-add').click(function (e){
+        e.preventDefault();
+
+        const form_inputs = [
+            {
+                'textLabel': 'Nº de Volumes',
+                'suffixText': 'Qt',
+                'input_type': 'number',
+                'input_name': 'product_quantity_',
+                'input_id': 'product_quantity_',
+                'input_class': 'd',
+                'input_placeholder': '1'
+            },
+            {
+                'textLabel': 'Peso por volume',
+                'suffixText': 'Kg',
+                'input_type': 'text',
+                'input_name': 'product_weight_',
+                'input_id': 'product_weight_',
+                'input_class': 'product_kg',
+                'input_placeholder': '0,000 kg'
+            },
+            {
+                'textLabel': 'Altura',
+                'suffixText': 'cm',
+                'input_type': 'text',
+                'input_name': 'product_height',
+                'input_id': 'product_height_',
+                'input_class': 'product-cm',
+                'input_placeholder': '0,00 cm'
+            },
+            {
+                'textLabel': 'Largura',
+                'suffixText': 'cm',
+                'input_type': 'text',
+                'input_name': 'product_width_',
+                'input_id': 'product_width_',
+                'input_class': 'product-cm',
+                'input_placeholder': '0,00 cm'
+            },
+            {
+                'textLabel': 'Comprimento',
+                'suffixText': 'cm',
+                'input_type': 'text',
+                'input_name': 'product_depth_',
+                'input_id': 'product_depth_',
+                'input_class': 'product-cm',
+                'input_placeholder': '0,00 cm'
+            },
+
+        ];
+
+        let form_volumes = document.createElement('div');
+        form_volumes.setAttribute('id', 'form_volumes_inputs_'+contador);
+        form_volumes.setAttribute('class', 'form-volumes-inputs');
+        $('.form-volumes-item').append(form_volumes);
+
+        for(let i = 0; i < form_inputs.length; i++){
+            createElVolume(form_inputs, i, contador)
+        }
+
+        contador++;
+    
+    });
+
+    $('.form-volumes-remove').click(function (e){
+        e.preventDefault();
+       
+    });
+
     $('#btnquote').click(function (e) {
         e.preventDefault();
 

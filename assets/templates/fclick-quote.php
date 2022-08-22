@@ -9,7 +9,7 @@
                     <input type="text" id="custumer-email" name="custumer-email" placeholder="E-mail">
                </div>
                <div class="wpfc-box-control">
-                    <input type="text" class="phone_with_ddd" id="custumer-phone" name="custumer-phone" placeholder="Telefone">
+                    <input type="tel" maxlength="15" autocomplete="off" class="phone_with_ddd" id="custumer-phone" name="custumer-phone" placeholder="Telefone">
                     <div class="wrap-spin-in">
                          <div class="spin-in"></div>
                     </div>
@@ -49,52 +49,60 @@
 
           </div>
 
-
- 
-          <div class="box-product-data">
-               <h4>Dados dos produtos</h4>
-          
-               <div class="box-col-6">
-                    
-                    <div class="wrap-box-control">
-                         <span class="text-label">Nº de Volumes</span>
-                         <div class="wpfc-box-control">
-                              <input type="number" id="product-quantity" name="product-quantity" placeholder="1" required>
-                              <div class="text-suffix">QT</div>
-                         </div>
-                    </div>
-                    <div class="wrap-box-control">
-                         <span class="text-label">Peso</span>
-                         <div class="wpfc-box-control">
-                              <input type="text" id="product-weight" name="product-weight" placeholder="0,000 kg" required> 
-                              <div class="text-suffix">kg</div>
-                         </div>
-                    </div>
-                    <div class="wrap-box-control">
-                         <span class="text-label">Altura</span>
-                         <div class="wpfc-box-control">
-                              <input type="text" class="product-cm" id="product-height" name="product-height" placeholder="0,00 cm" required>
-                              <div class="text-suffix">cm</div>
-                         </div>
-                    </div>
-                    <div class="wrap-box-control">
-                         <span class="text-label">Largura</span>
-                         <div class="wpfc-box-control">
-                              <input type="text" class="product-cm" id="product-width" name="product-width" placeholder="0,00 cm" required>
-                              <div class="text-suffix">cm</div>
-                         </div>
-                    </div>
-                    <div class="wrap-box-control">
-                         <span class="text-label">Comprimento</span>
-                         <div class="wpfc-box-control">
-                              <input type="text" class="product-cm" id="product-depth" name="product-depth" placeholder="0,00 cm" required>
-                              <div class="text-suffix">cm</div>
-                         </div>
-                    </div>
-
-               </div>
+          <div class="form-title">
+               <h4>Informações do volume</h4>
           </div>
+ 
+          <div class="form-volumes-wrap">
+               
+               <div class="form-volumes-item">
+                    <div id="form_volumes_inputs_" class="form-volumes-inputs">
 
+                         <div class="form-control">
+                              <span class="text-label">Nº de Volumes</span>
+                              <div class="wpfc-box-control">
+                                   <input type="number" id="product-quantity" name="product-quantity" placeholder="1" required>
+                                   <div class="text-suffix">QT</div>
+                              </div>
+                         </div>
+                         <div class="form-control">
+                              <span class="text-label">Peso por volume</span>
+                              <div class="wpfc-box-control">
+                                   <input type="text" class="product_kg" id="product-weight" name="product-weight" placeholder="0,000 kg" required> 
+                                   <div class="text-suffix">kg</div>
+                              </div>
+                         </div>
+                         <div class="form-control">
+                              <span class="text-label">Altura</span>
+                              <div class="wpfc-box-control">
+                                   <input type="text" class="product-cm" id="product-height" name="product-height" placeholder="0,00 cm" required>
+                                   <div class="text-suffix">cm</div>
+                              </div>
+                         </div>
+                         <div class="form-control">
+                              <span class="text-label">Largura</span>
+                              <div class="wpfc-box-control">
+                                   <input type="text" class="product-cm" id="product-width" name="product-width" placeholder="0,00 cm" required>
+                                   <div class="text-suffix">cm</div>
+                              </div>
+                         </div>
+                         <div class="form-control">
+                              <span class="text-label">Comprimento</span>
+                              <div class="wpfc-box-control">
+                                   <input type="text" class="product-cm" id="product-depth" name="product-depth" placeholder="0,00 cm" required>
+                                   <div class="text-suffix">cm</div>
+                              </div>
+                         </div>
+                         
+                    </div>
+                    <div class="form-wrap-remove-volume">
+                              <button class="form-volumes-remove">REMOVER</button>
+                    </div>
+               </div>
+          
+               <button class="form-volumes-add">Adicionar volume</button>
+
+          </div>
 
           <div class="wrap-btn-quote">
                <input type="submit" name="submit" id="btnquote" class="btn-quote" value="FAZER COTAÇÃO DE FRETE">
