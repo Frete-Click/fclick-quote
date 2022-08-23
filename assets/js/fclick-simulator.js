@@ -321,11 +321,11 @@ function createElVolume(data = [], index, elnum){
 
     let box_in = document.createElement('input');
     box_in.setAttribute('type', data[index]['input_type']);
-    box_in.setAttribute('id', data[index]['input_id']+elnum);
     box_in.setAttribute('class', data[index]['input_class']);
+    box_in.setAttribute('id', data[index]['input_id']+elnum);
     box_in.setAttribute('name', data[index]['input_name']+elnum);
+    box_in.setAttribute('data-package',  data[index]['input_name']+elnum);
     box_in.setAttribute('placeholder', data[index]['input_placeholder']);
-    box_in.setAttribute('data-value',  '1');
 
     box_control.append(box_in);
 
@@ -337,8 +337,7 @@ function createElVolume(data = [], index, elnum){
 
     box_control.append(suffix)
 
-    $('#form_volumes_inputs_'+elnum).append(form_control);
-    
+    return form_control; 
 }
 
 
@@ -370,8 +369,8 @@ jQuery(document).ready(function ($) {
 
         const form_inputs = [
             {
-                'textLabel': 'Nº de Volumes',
-                'suffixText': 'Qt',
+                'textLabel': 'Quantidade',
+                'suffixText': 'Nº',
                 'input_type': 'number',
                 'input_name': 'product_quantity_',
                 'input_id': 'product_quantity_',
@@ -379,7 +378,7 @@ jQuery(document).ready(function ($) {
                 'input_placeholder': '1'
             },
             {
-                'textLabel': 'Peso por volume',
+                'textLabel': 'Peso',
                 'suffixText': 'Kg',
                 'input_type': 'text',
                 'input_name': 'product_weight_',
@@ -406,7 +405,7 @@ jQuery(document).ready(function ($) {
                 'input_placeholder': '0,00 m'
             },
             {
-                'textLabel': 'Comprimento',
+                'textLabel': 'Profundidade',
                 'suffixText': 'm',
                 'input_type': 'text',
                 'input_name': 'product_depth_',
@@ -417,23 +416,40 @@ jQuery(document).ready(function ($) {
 
         ];
 
-        let form_volumes = document.createElement('div');
-        form_volumes.setAttribute('id', 'form_volumes_inputs_'+contador);
-        form_volumes.setAttribute('class', 'form-volumes-inputs');
-        $('.form-volumes-item').append(form_volumes);
+        let form_volumes_item = document.createElement('div');
+        form_volumes_item.setAttribute('class', 'form-volumes-item');
+        form_volumes_item.setAttribute('data-volumes', contador);
+
+        let form_volumes_inputs = document.createElement('div');
+        form_volumes_inputs.setAttribute('class', 'form-volumes-inputs');
+
+        form_volumes_item.append(form_volumes_inputs);
 
         for(let i = 0; i < form_inputs.length; i++){
-            createElVolume(form_inputs, i, contador)
+            console.log(i);
+            form_volumes_inputs.append( createElVolume(form_inputs, i, contador) )
         }
+
+        let remove_volumes = document.createElement('div');
+        remove_volumes.setAttribute('class', 'form-wrap-remove-volume');
+        
+        form_volumes_item.append(remove_volumes);
+
+        let btn_remove = document.createElement('button');
+        btn_remove.setAttribute('type', 'button');
+        btn_remove.setAttribute('class', 'form-volumes-remove');
+        btn_remove.setAttribute('onclick', 'form_item_remove('+ contador +')')
+
+        let btn_remove_text = document.createTextNode('Remover volume');
+        btn_remove.append(btn_remove_text);
+
+        remove_volumes.append(btn_remove);
+        
+        $('.form-volumes-wrap').append(form_volumes_item);
 
         formatMask();
         contador++;
     
-    });
-
-    $('.form-volumes-remove').click(function (e){
-        e.preventDefault();
-       
     });
 
     $('#btnquote').click(function (e) {
@@ -462,3 +478,11 @@ jQuery(document).ready(function ($) {
 
     })
 })
+
+function form_item_remove(index){
+
+    var item = document.getElementsByClassName('.form-volumes-item');
+    //item.remove(index);
+    //console.log(item)
+    console.log(item.getAttribute('data-volumes'))
+}

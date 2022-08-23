@@ -11,6 +11,11 @@
     gap: 10px;
     margin-bottom: 10px;
 }
+.form-volumes-item{
+    border: 1px solid #e2e2e2;
+    padding: 7px;
+    margin-bottom: 5px;
+}
 .form-volumes-inputs{
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -47,8 +52,16 @@
     color: #4b4b4b;
 }
 .form-volumes-wrap{
-    border: 1px solid #e2e2e2;
-    padding: 10px;
+
+}
+.wrap-button-add{
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 10px 0;
+    width: 100%;
 }
 .form-volumes-add{
     box-shadow: 0px 3px 7px 0px rgb(0 0 0 / 40%);
@@ -67,14 +80,10 @@
     width: 100%;
 }
 .form-volumes-remove{
-    border: 1px solid #c7c7c7;
-    background-color: #c7c7c7;
-    box-shadow: none;
-    padding: 5px;
-    border-radius: 1px;
+    border: none;
+    background-color: transparent;
     cursor: pointer;
     color: rgb(0, 0, 0);
-    display:none;
 }
 
 
@@ -93,7 +102,7 @@
     }
     .form-volumes-inputs{
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(1, 1fr);
         gap: 10px;
         margin-bottom: 10px;
     }
@@ -101,7 +110,7 @@
 @media (max-width: 640px) {
     .form-volumes-inputs{
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(1, 1fr);
         gap: 10px;
         margin-bottom: 10px;
     }
@@ -128,7 +137,7 @@
     align-content: center;
     justify-content: center;
     flex-wrap: nowrap;
-
+    width: 100%;
 }
 .wpfc-box-control input[type='text'], .wpfc-box-control input[type="number"], .wpfc-box-control input[type="tel"], .wpfc-box-control select{
     width: 100%;
@@ -154,7 +163,7 @@
 }
 .text-label{
     text-align: left !important;
-    font-weight:600;
+    font-size: 14px;
 }
 
 .product-data{
