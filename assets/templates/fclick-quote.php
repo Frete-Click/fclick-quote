@@ -93,16 +93,13 @@
                                    <div class="text-suffix">m</div>
                               </div>
                          </div>
-                         <!--Button remove-->
-
                     </div>
                </div>
           </div>
           <!--Button add-->
           <div class="wrap-button-add">
-               <button class="form-volumes-add">Adicionar</button>
+               <button class="form-volumes-add"><span class="dashicons dashicons-plus"></span>Adicionar volume</button>
           </div>
-
 
           <div class="wrap-btn-quote">
                <input type="submit" name="submit" id="btnquote" class="btn-quote" value="FAZER COTAÇÃO DE FRETE">

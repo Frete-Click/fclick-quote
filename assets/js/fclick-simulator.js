@@ -11,7 +11,7 @@ function add_carrier_quote_id(quote_id){
     return  $('.quote-num').html(el)
 }
 
-function addCarrirToList(image, deadline, price, retrieveDeadline){
+function addCarrirToList(image, price, retrieveDeadline, deadline){
 
     $('.popup-cover').addClass('wrap-quotes')
     $('#btnclousemodal').css('display', 'block')
@@ -51,7 +51,7 @@ function addCarrirToList(image, deadline, price, retrieveDeadline){
     box_delivery.setAttribute('class', 'box-delivery');
 
     let delivery_span = document.createElement('span');
-    let text_delivery = document.createTextNode('Entrega entre ' + deadline + ' e 4 dias úteis');
+    let text_delivery = document.createTextNode('Entrega entre ' + deadline + ' e '+ deliveryDeadline(deadline) +' dias úteis');
     delivery_span.append(text_delivery);
 
     let delivery_p = document.createElement('p');
@@ -156,6 +156,11 @@ function convert_price(price){
     return price;
 }
 
+function deliveryDeadline(num){
+    var soma =  parseInt(num) + parseInt(2);
+    return soma;
+}
+
 function form_data(){
     const data_form = {
         'action': 'get_quotes',
@@ -207,7 +212,7 @@ function get_quotes(){
             add_carrier_quote_id(res.response.data.order.id)
 
             $.each(res.response.data.order.quotes, function (index, val){
-                $('#listing-quotes').html(addCarrirToList(val['carrier']['image'], val['deliveryDeadline'], formatPrice(val['total']), val['retrieveDeadline']))
+                $('#listing-quotes').html(addCarrirToList(val['carrier']['image'], formatPrice(val['total']), val['retrieveDeadline'],  val['deliveryDeadline']))
                 show_modal()
                 console.log(val['carrier']['alias'])
             });
@@ -340,6 +345,9 @@ function createElVolume(data = [], index, elnum){
     return form_control; 
 }
 
+function form_item_remove(index){
+    $('#form-volumes-item_'+index).remove();
+}
 
 /**
  * JQuery ready document
@@ -418,7 +426,7 @@ jQuery(document).ready(function ($) {
 
         let form_volumes_item = document.createElement('div');
         form_volumes_item.setAttribute('class', 'form-volumes-item');
-        form_volumes_item.setAttribute('data-volumes', contador);
+        form_volumes_item.setAttribute('id', 'form-volumes-item_'+contador);
 
         let form_volumes_inputs = document.createElement('div');
         form_volumes_inputs.setAttribute('class', 'form-volumes-inputs');
@@ -426,7 +434,6 @@ jQuery(document).ready(function ($) {
         form_volumes_item.append(form_volumes_inputs);
 
         for(let i = 0; i < form_inputs.length; i++){
-            console.log(i);
             form_volumes_inputs.append( createElVolume(form_inputs, i, contador) )
         }
 
@@ -439,6 +446,12 @@ jQuery(document).ready(function ($) {
         btn_remove.setAttribute('type', 'button');
         btn_remove.setAttribute('class', 'form-volumes-remove');
         btn_remove.setAttribute('onclick', 'form_item_remove('+ contador +')')
+
+        //<span class="dashicons dashicons-trash"></span>
+        btn_remove_icon = document.createElement('span');
+        btn_remove_icon.setAttribute('class', 'dashicons dashicons-trash');
+
+        btn_remove.append(btn_remove_icon);
 
         let btn_remove_text = document.createTextNode('Remover volume');
         btn_remove.append(btn_remove_text);
@@ -456,7 +469,7 @@ jQuery(document).ready(function ($) {
         e.preventDefault();
 
         addLoader();
-/*
+        /*
         console.log(
             $('#product-invoice-total').val(),
             $('#product-quantity').val(),
@@ -472,17 +485,10 @@ jQuery(document).ready(function ($) {
 
             console.log(field)
           //$("#listing-quotes").append(field.name + ":" + field.value + " ");
-        });*/
+        });
+        */
 
       get_quotes();
 
     })
 })
-
-function form_item_remove(index){
-
-    var item = document.getElementsByClassName('.form-volumes-item');
-    //item.remove(index);
-    //console.log(item)
-    console.log(item.getAttribute('data-volumes'))
-}

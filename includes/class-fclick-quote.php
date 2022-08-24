@@ -19,6 +19,7 @@ class Quote
         
         wp_enqueue_style('fclick-simulator', plugins_url('assets/css/fclick-simulator.css', plugin_dir_path(__FILE__)));
         wp_enqueue_style('fclick-modal', plugins_url('assets/css/fclick-modal.css', plugin_dir_path(__FILE__)));
+        wp_enqueue_style( 'dashicons' );
 
 
         wp_localize_script('wpfc-cota-facil', 'ajax_cotafacil', array(
