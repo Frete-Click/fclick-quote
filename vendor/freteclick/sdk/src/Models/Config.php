@@ -11,6 +11,7 @@ class Config{
 	protected $app_type = '';
 	protected $deny_carriers = null;
 	protected $domain = null;
+	protected $contact = array();
 
 
 	public function getOrder(){

@@ -1,6 +1,6 @@
 function formatPrice(price) {
     return price.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
- }
+}
 
 function add_carrier_quote_id(quote_id){
     var el = document.createElement('h4');
@@ -82,7 +82,7 @@ function addCarrirToList(image, price, retrieveDeadline, deadline){
 
     box_info.append(button);
 
-    $('#listing-quotes').append(box_quote);
+    $('#listing-quotes').html(box_quote);
 
 }
 
@@ -161,71 +161,7 @@ function deliveryDeadline(num){
     return soma;
 }
 
-function form_data(){
-    const data_form = {
-        'action': 'get_quotes',
-        'custumer-name': $('#custumer-name').val(),
-        'custumer-email': $('#custumer-email').val(),
-        'custumer-phone': $('#custumer-phone').val(),
-        'cep_retriver': $('#cep_retriver').val(),
-        'cep_delivery': $('#cep_delivery').val(),
-        'product-category': $('#product-category').val(),
-        'product-type': $('#product-type').val(),
-        
-        'product-invoice-total': convert_price( $('#product-invoice-total').val() ),
-        'product-quantity': $('#product-quantity').val(),
-        'product-weight':   convert_kg( $('#product-weight').val() ),
-        'product-height':   convert_m( $('#product-height').val() ),
-        'product-width':    convert_m( $('#product-width').val() ),
-        'product-depth':    convert_m( $('#product-depth').val() )
-    }
-
-    return data_form
-}
-
-function get_quotes(){
-    $.ajax({
-        url: ajax_cotafacil.url,
-        type: 'POST',
-        dataType: 'json',
-        data: form_data(),
-        success: function (request) {
-            
-            removeLoader()
-
-            res = JSON.parse(request);
-            console.log(res)
-
-            if(res.success === false){
-                addError(res.error.message)
-                show_modal()
-            }
-
-            if(res.response.success === false){
-
-                if(res.response.error === 'No results'){
-                    addError('<span>Nehum resultado foi encontrado</span>')
-                    show_modal()
-                }
-            }
-
-            add_carrier_quote_id(res.response.data.order.id)
-
-            $.each(res.response.data.order.quotes, function (index, val){
-                $('#listing-quotes').html(addCarrirToList(val['carrier']['image'], formatPrice(val['total']), val['retrieveDeadline'],  val['deliveryDeadline']))
-                show_modal()
-                console.log(val['carrier']['alias'])
-            });
-            
-       },
-        error: function (request, status, error) {
-            removeLoader() 
-            addError(request.responseText)
-            show_modal()
-        }
-    })
-}
-
+// dissable form inputs
 function disable_elements(){
     
     $('#custumer-name').prop('disabled', true),
@@ -244,6 +180,7 @@ function disable_elements(){
     add_spin_input();
 }
 
+// Enable form inputs
 function enable_elements(){
 
     $('#custumer-name').prop('disabled', false),
@@ -262,6 +199,7 @@ function enable_elements(){
     remove_spin_input();
 }
 
+// Get people by id
 function getPeopleByID(id){
 
     axios.get('https://api.freteclick.com.br/people/' + id, {
@@ -273,8 +211,8 @@ function getPeopleByID(id){
 
         var phone = res.data.phone[0].ddd.toString() + res.data.phone[0].phone.toString() + ' ';
 
-        $('#custumer-name').val(res.data.name)
-        $('#custumer-phone').val(phone)
+        $('#custumer-name').val(res.data.name);
+        $('#custumer-phone').val(phone.trim());
 
         enable_elements();
     })
@@ -283,6 +221,7 @@ function getPeopleByID(id){
     })
 }
 
+// Get people id by e-mail
 function getPeopleIdByEmail() {
 
     enable_elements();
@@ -307,7 +246,13 @@ function getPeopleIdByEmail() {
 
 }
 
-function createElVolume(data = [], index, elnum){
+// remove volume
+function form_item_remove(index){
+    $('#form-volumes-item_'+index).remove();
+}
+
+// create inputs of volumes
+function create_inputs_volumes(data = [], index, elnum){
 
     let form_control = document.createElement('div');
     form_control.setAttribute('class', 'form-control');
@@ -327,9 +272,8 @@ function createElVolume(data = [], index, elnum){
     let box_in = document.createElement('input');
     box_in.setAttribute('type', data[index]['input_type']);
     box_in.setAttribute('class', data[index]['input_class']);
-    box_in.setAttribute('id', data[index]['input_id']+elnum);
-    box_in.setAttribute('name', data[index]['input_name']+elnum);
-    box_in.setAttribute('data-package',  data[index]['input_name']+elnum);
+    box_in.setAttribute('id', data[index]['input_id']);
+    box_in.setAttribute('name', data[index]['input_name']);
     box_in.setAttribute('placeholder', data[index]['input_placeholder']);
 
     box_control.append(box_in);
@@ -345,21 +289,203 @@ function createElVolume(data = [], index, elnum){
     return form_control; 
 }
 
-function form_item_remove(index){
-    $('#form-volumes-item_'+index).remove();
+// add new volume
+function add_new_volume(){
+
+    const form_inputs = [
+        {
+            'textLabel': 'Quantidade',
+            'suffixText': 'QT',
+            'input_type': 'number',
+            'input_name': 'quantity',
+            'input_id': 'quantity',
+            'input_class': '',
+            'input_placeholder': '1'
+        },
+        {
+            'textLabel': 'Peso',
+            'suffixText': 'Kg',
+            'input_type': 'text',
+            'input_name': 'weight',
+            'input_id': 'weight',
+            'input_class': 'product_kg',
+            'input_placeholder': '0,000 kg'
+        },
+        {
+            'textLabel': 'Altura',
+            'suffixText': 'M',
+            'input_type': 'text',
+            'input_name': 'height',
+            'input_id': 'height',
+            'input_class': 'product-cm',
+            'input_placeholder': '0,00 m'
+        },
+        {
+            'textLabel': 'Largura',
+            'suffixText': 'M',
+            'input_type': 'text',
+            'input_name': 'width',
+            'input_id': 'width',
+            'input_class': 'product-cm',
+            'input_placeholder': '0,00 m'
+        },
+        {
+            'textLabel': 'Profundidade',
+            'suffixText': 'M',
+            'input_type': 'text',
+            'input_name': 'pdepth',
+            'input_id': 'depth',
+            'input_class': 'product-cm',
+            'input_placeholder': '0,00 m'
+        },
+
+    ];
+
+    let form_volumes_item = document.createElement('div');
+    form_volumes_item.setAttribute('class', 'form-volumes-item');
+    form_volumes_item.setAttribute('id', 'form-volumes-item_'+contador);
+
+    let form_volumes_inputs = document.createElement('div');
+    form_volumes_inputs.setAttribute('class', 'form-volumes-inputs');
+
+    form_volumes_item.append(form_volumes_inputs);
+
+    for(let i = 0; i < form_inputs.length; i++){
+        form_volumes_inputs.append( create_inputs_volumes(form_inputs, i, contador) )
+    }
+
+    let remove_volumes = document.createElement('div');
+    remove_volumes.setAttribute('class', 'form-wrap-remove-volume');
+    
+    form_volumes_item.append(remove_volumes);
+
+    let btn_remove = document.createElement('button');
+    btn_remove.setAttribute('type', 'button');
+    btn_remove.setAttribute('class', 'form-volumes-remove');
+    btn_remove.setAttribute('onclick', 'form_item_remove('+ contador +')')
+
+    //<span class="dashicons dashicons-trash"></span>
+    btn_remove_icon = document.createElement('span');
+    btn_remove_icon.setAttribute('class', 'dashicons dashicons-trash');
+
+    btn_remove.append(btn_remove_icon);
+
+    let btn_remove_text = document.createTextNode('Remover volume');
+    btn_remove.append(btn_remove_text);
+
+    remove_volumes.append(btn_remove);
+    
+    $('.form-volumes-wrap').append(form_volumes_item);
+
+}
+
+// Get form values
+function get_form_data(){
+    const form_data = {
+        //cunstumer
+        'custumer-name': $('#custumer-name').val(),
+        'custumer-email': $('#custumer-email').val(),
+        'custumer-phone': $('#custumer-phone').val(),
+        
+        //address
+        'cep_retriver': $('#cep_retriver').val(),
+        'cep_delivery': $('#cep_delivery').val(),
+        
+        //packages types
+        'product-category': $('#product-category').val(),
+        'product-type': $('#product-type').val(),
+
+        'invoice-total':  convert_price( $('#product-invoice-total').val() )
+
+    }
+
+    return form_data;
+
+}
+
+// Get packages
+function get_packages(){
+
+    const packages = [];
+
+    $( ".form-volumes-item" ).each(function( index ) {
+        packages.push({
+            'quantity': $(this).find('#quantity').val(),
+            'weight': convert_kg( $(this).find('#weight').val() ),
+            'width': convert_m( $(this).find('#width').val() ),
+            'height': convert_m( $(this).find('#height').val() ),
+            'depth': convert_m(  $(this).find('#depth').val() )
+        })
+        
+    });
+
+    return packages;
+}
+
+// Get quotes in ajax
+function get_quotes(){
+
+    $.ajax({
+        url: ajax_cotafacil.url,
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            'action': 'get_quotes',
+            'custumers': get_form_data(),
+            'packages': get_packages()
+        },            
+        success: function (request) {
+          
+            removeLoader()
+
+            res = JSON.parse(request);
+            console.log(res)
+
+            if(res.success === false){
+                addError(res.error.message)
+                show_modal()
+            }
+
+            if(res.response.success === false){
+
+                if(res.response.error === 'No results'){
+                    addError('<span>Nehum resultado foi encontrado</span>')
+                    show_modal()
+                }
+            }
+
+            add_carrier_quote_id(res.response.data.order.id)
+
+            $.each(res.response.data.order.quotes, function (index, val){
+                $('#listing-quotes').html(addCarrirToList(val['carrier']['image'], formatPrice(val['total']), val['retrieveDeadline'],  val['deliveryDeadline']));
+                show_modal()
+            });
+            
+       },
+        error: function (request, status, error) {
+            removeLoader() 
+            addError(request.responseText)
+            show_modal()
+        }
+    })
+
 }
 
 /**
- * JQuery ready document
+ * variables
  */
+var contador = 0;
+
 jQuery(document).ready(function ($) {
     
     formatMask();
     add_options();
+    add_new_volume();
 
     var typingTimer; 
     var doneTypingInterval = 1000; 
     
+    //Get custumer by e-mail
     $('#custumer-email').keyup(function() {
         
         clearTimeout(typingTimer);
@@ -370,125 +496,24 @@ jQuery(document).ready(function ($) {
         }
     });
 
-    var contador = 0;
-
+    // add new volume
     $('.form-volumes-add').click(function (e){
         e.preventDefault();
-
-        const form_inputs = [
-            {
-                'textLabel': 'Quantidade',
-                'suffixText': 'Nº',
-                'input_type': 'number',
-                'input_name': 'product_quantity_',
-                'input_id': 'product_quantity_',
-                'input_class': 'd',
-                'input_placeholder': '1'
-            },
-            {
-                'textLabel': 'Peso',
-                'suffixText': 'Kg',
-                'input_type': 'text',
-                'input_name': 'product_weight_',
-                'input_id': 'product_weight_',
-                'input_class': 'product_kg',
-                'input_placeholder': '0,000 kg'
-            },
-            {
-                'textLabel': 'Altura',
-                'suffixText': 'm',
-                'input_type': 'text',
-                'input_name': 'product_height',
-                'input_id': 'product_height_',
-                'input_class': 'product-cm',
-                'input_placeholder': '0,00 m'
-            },
-            {
-                'textLabel': 'Largura',
-                'suffixText': 'm',
-                'input_type': 'text',
-                'input_name': 'product_width_',
-                'input_id': 'product_width_',
-                'input_class': 'product-cm',
-                'input_placeholder': '0,00 m'
-            },
-            {
-                'textLabel': 'Profundidade',
-                'suffixText': 'm',
-                'input_type': 'text',
-                'input_name': 'product_depth_',
-                'input_id': 'product_depth_',
-                'input_class': 'product-cm',
-                'input_placeholder': '0,00 m'
-            },
-
-        ];
-
-        let form_volumes_item = document.createElement('div');
-        form_volumes_item.setAttribute('class', 'form-volumes-item');
-        form_volumes_item.setAttribute('id', 'form-volumes-item_'+contador);
-
-        let form_volumes_inputs = document.createElement('div');
-        form_volumes_inputs.setAttribute('class', 'form-volumes-inputs');
-
-        form_volumes_item.append(form_volumes_inputs);
-
-        for(let i = 0; i < form_inputs.length; i++){
-            form_volumes_inputs.append( createElVolume(form_inputs, i, contador) )
-        }
-
-        let remove_volumes = document.createElement('div');
-        remove_volumes.setAttribute('class', 'form-wrap-remove-volume');
         
-        form_volumes_item.append(remove_volumes);
-
-        let btn_remove = document.createElement('button');
-        btn_remove.setAttribute('type', 'button');
-        btn_remove.setAttribute('class', 'form-volumes-remove');
-        btn_remove.setAttribute('onclick', 'form_item_remove('+ contador +')')
-
-        //<span class="dashicons dashicons-trash"></span>
-        btn_remove_icon = document.createElement('span');
-        btn_remove_icon.setAttribute('class', 'dashicons dashicons-trash');
-
-        btn_remove.append(btn_remove_icon);
-
-        let btn_remove_text = document.createTextNode('Remover volume');
-        btn_remove.append(btn_remove_text);
-
-        remove_volumes.append(btn_remove);
-        
-        $('.form-volumes-wrap').append(form_volumes_item);
-
-        formatMask();
+        add_new_volume();
+        formatMask();       
         contador++;
     
     });
 
+    // Get Quotes
     $('#btnquote').click(function (e) {
         e.preventDefault();
 
         addLoader();
-        /*
-        console.log(
-            $('#product-invoice-total').val(),
-            $('#product-quantity').val(),
-            $('#product-weight').val(),
-            $('#product-height').val(),
-            $('#product-width').val(),
-            $('#product-depth').val()
-         );
-         */
-        
-        /*var x = $("#form-quote").serializeArray();
-        $.each(x, function(i, field){
-
-            console.log(field)
-          //$("#listing-quotes").append(field.name + ":" + field.value + " ");
-        });
-        */
-
-      get_quotes();
+        get_quotes();
 
     })
+
+    formatMask();
 })

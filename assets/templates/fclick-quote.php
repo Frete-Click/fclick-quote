@@ -53,49 +53,8 @@
                <h4>Informações do volume</h4>
           </div>
  
-          <div class="form-volumes-wrap">
-               
-               <div class="form-volumes-item">
-                    <div class="form-volumes-inputs" data-volumes="33">
-
-                         <div class="form-control">
-                              <span class="text-label">Quantidade</span>
-                              <div class="wpfc-box-control">
-                                   <input type="number" id="product-quantity" name="product-quantity" placeholder="1" required>
-                                   <div class="text-suffix">Nº</div>
-                              </div>
-                         </div>
-                         <div class="form-control">
-                              <span class="text-label">Peso</span>
-                              <div class="wpfc-box-control">
-                                   <input type="text" tabindex="0" aria-label="Peso" class="product_kg" id="product-weight" name="product-weight" placeholder="0,000 kg" required> 
-                                   <div class="text-suffix">kg</div>
-                              </div>
-                         </div>
-                         <div class="form-control">
-                              <span class="text-label">Altura</span>
-                              <div class="wpfc-box-control">
-                                   <input type="text" class="product-cm" id="product-height" name="product-height" placeholder="0,00 m" required>
-                                   <div class="text-suffix">m</div>
-                              </div>
-                         </div>
-                         <div class="form-control">
-                              <span class="text-label">Largura</span>
-                              <div class="wpfc-box-control">
-                                   <input type="text" class="product-cm" id="product-width" name="product-width" placeholder="0,00 m" required>
-                                   <div class="text-suffix">m</div>
-                              </div>
-                         </div>
-                         <div class="form-control">
-                              <span class="text-label">Profundidade</span>
-                              <div class="wpfc-box-control">
-                                   <input type="text" class="product-cm" id="product-depth" name="product-depth" placeholder="0,00 m" required>
-                                   <div class="text-suffix">m</div>
-                              </div>
-                         </div>
-                    </div>
-               </div>
-          </div>
+          <div class="form-volumes-wrap"></div>
+          
           <!--Button add-->
           <div class="wrap-button-add">
                <button class="form-volumes-add"><span class="dashicons dashicons-plus"></span>Adicionar volume</button>

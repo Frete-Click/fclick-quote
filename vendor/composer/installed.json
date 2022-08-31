@@ -2,17 +2,17 @@
     "packages": [
         {
             "name": "freteclick/sdk",
-            "version": "v1.2.25",
-            "version_normalized": "1.2.25.0",
+            "version": "v1.2.26",
+            "version_normalized": "1.2.26.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Frete-Click/SDK.git",
-                "reference": "86507283e16d9ac02ed31c493dcd53d050bdf4f2"
+                "reference": "d248d3dd107bdfedc59b54de6b36c5d06127d300"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Frete-Click/SDK/zipball/86507283e16d9ac02ed31c493dcd53d050bdf4f2",
-                "reference": "86507283e16d9ac02ed31c493dcd53d050bdf4f2",
+                "url": "https://api.github.com/repos/Frete-Click/SDK/zipball/d248d3dd107bdfedc59b54de6b36c5d06127d300",
+                "reference": "d248d3dd107bdfedc59b54de6b36c5d06127d300",
                 "shasum": ""
             },
             "require": {
@@ -20,7 +20,7 @@
                 "guzzlehttp/guzzle": "~6.3",
                 "php": ">=7.2"
             },
-            "time": "2022-08-18T16:10:32+00:00",
+            "time": "2022-08-31T17:19:38+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -45,7 +45,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Frete-Click/SDK/issues",
-                "source": "https://github.com/Frete-Click/SDK/tree/v1.2.25"
+                "source": "https://github.com/Frete-Click/SDK/tree/v1.2.26"
             },
             "install-path": "../freteclick/sdk"
         },
@@ -169,17 +169,17 @@
         },
         {
             "name": "guzzlehttp/promises",
-            "version": "1.5.1",
-            "version_normalized": "1.5.1.0",
+            "version": "1.5.2",
+            "version_normalized": "1.5.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/promises.git",
-                "reference": "fe752aedc9fd8fcca3fe7ad05d419d32998a06da"
+                "reference": "b94b2807d85443f9719887892882d0329d1e2598"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/promises/zipball/fe752aedc9fd8fcca3fe7ad05d419d32998a06da",
-                "reference": "fe752aedc9fd8fcca3fe7ad05d419d32998a06da",
+                "url": "https://api.github.com/repos/guzzle/promises/zipball/b94b2807d85443f9719887892882d0329d1e2598",
+                "reference": "b94b2807d85443f9719887892882d0329d1e2598",
                 "shasum": ""
             },
             "require": {
@@ -188,7 +188,7 @@
             "require-dev": {
                 "symfony/phpunit-bridge": "^4.4 || ^5.1"
             },
-            "time": "2021-10-22T20:56:57+00:00",
+            "time": "2022-08-28T14:55:35+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -236,7 +236,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/promises/issues",
-                "source": "https://github.com/guzzle/promises/tree/1.5.1"
+                "source": "https://github.com/guzzle/promises/tree/1.5.2"
             },
             "funding": [
                 {

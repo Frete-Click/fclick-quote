@@ -15,6 +15,14 @@
     border: 1px solid #e2e2e2;
     padding: 7px;
     margin-bottom: 5px;
+    transition: all 0.8s;
+    -moz-transition: all 0.8s; 
+    -webkit-transition: all 0.8s;
+    -o-transition: all 0.8s;
+    transition-delay: 0.2s;
+    -moz-transition-delay: 0.2s;
+    -webkit-transition-delay: 0.2s;
+    -o-transition-delay: 0.2s;
 }
 .form-volumes-inputs{
     display: grid;
@@ -73,6 +81,15 @@
     font-weight: 600;
     padding: 7px 20px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+.form-volumes-add span{
+    display: flex;
+    justify-content: center;
+    padding: 2px;
 }
 .form-volumes-add:hover{
     color: rgb(0, 0, 0);

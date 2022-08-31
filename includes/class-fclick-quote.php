@@ -73,8 +73,8 @@ class Quote
         $config->setDomain('expressogp.freteclick.com.br');
         $quote_request->setConfig($config);
 
-        if(!empty($_POST['cep_retriver'])){
-            $retriver_address = self::get_address($_POST['cep_retriver']);
+        if(!empty($_POST['custumers']['cep_retriver'])){
+            $retriver_address = self::get_address($_POST['custumers']['cep_retriver']);
 
             if($retriver_address === null){
                 self::add_error('Não foi possível localizar o endereço informado, por favor tente novamente!', false);
@@ -84,8 +84,8 @@ class Quote
             self::add_error('Endereco de coleta incorreto!', false);
         }
 
-        if(!empty($_POST['cep_delivery'])){
-            $delivery_address = self::get_address($_POST['cep_delivery']);
+        if(!empty($_POST['custumers']['cep_delivery'])){
+            $delivery_address = self::get_address($_POST['custumers']['cep_delivery']);
             
             if($delivery_address === null){
                 self::add_error('Não foi possível localizar o endereço informado, por favor tente novamente!', false);
@@ -95,22 +95,22 @@ class Quote
             self::add_error('Endereco de entrega incorreto!', false);
         }
 
-        if(empty($_POST['custumer-name'])){
+        if(empty($_POST['custumers']['custumer-name'])){
             self::add_error('Informe seu nome completo!');
         }
 
-        if(empty($_POST['custumer-email'])){
+        if(empty($_POST['custumers']['custumer-email'])){
             self::add_error('Informe seu melhor e-mail!');
         }
 
-        if(empty($_POST['custumer-phone'])){
+        if(empty($_POST['custumers']['custumer-phone'])){
             self::add_error('Informe seu telefone');
         }
 
         $contact = array(
-            'name' => $_POST['custumer-name'],
-            'email' => $_POST['custumer-email'],
-            'phone' => self::format_number( $_POST['custumer-phone'] )
+            'name' => $_POST['custumers']['custumer-name'],
+            'email' => $_POST['custumers']['custumer-email'],
+            'phone' => self::format_number( $_POST['custumers']['custumer-phone'] )
         );
 
         $quote_request->setContact($contact);
@@ -127,39 +127,21 @@ class Quote
         $destination->setCountry($delivery_address['country']);
         $quote_request->setDestination($destination); 
 
-
-        if(empty($_POST['product-quantity'])){
-            self::add_error('Informe a quantidade de produtos!', false);
-        }
-        if(empty($_POST['product-weight'])){
-            self::add_error('Informe o peso do produto!', false);
-        }
-        if(empty($_POST['product-height'])){
-            self::add_error('Informe a altura do produto!', false);
-        }
-        if(empty($_POST['product-width'])){
-            self::add_error('Informe a largura do produto!', false);
-        }
-        if(empty($_POST['product-depth'])){
-            self::add_error('Informe a profundidade do produto!', false);
-        }
-        if(empty($_POST['product-type'])){
-            self::add_error('Você deve informar o tipo de produto!', false);
-        }
-        if(empty($_POST['product-invoice-total'])){
-            self::add_error('Você deve informar o valor do produto!', false);
-        }
-
         $package = new Package();
-        $package->setQuantity($_POST['product-quantity']);
-        $package->setWeight( $_POST['product-weight']);
-        $package->setHeight( $_POST['product-height']); 
-        $package->setWidth($_POST['product-width']);  
-        $package->setDepth( $_POST['product-depth']);  
-        $package->setProductType($_POST['product-type']);
-        $package->setProductPrice($_POST['product-invoice-total']);					
-        $quote_request->addPackage($package);	
-	
+
+        $quote_request->setProductTotalPrice($_POST['custumers']['invoice-total']);
+        $quote_request->setProductType($_POST['custumers']['product-type']);
+
+        $volumes = $_POST['packages'];
+
+        foreach($volumes as $volume){
+            $package->setQuantity($volume['quantity']);
+            $package->setWeight( $volume['weight']);
+            $package->setHeight( $volume['height']); 
+            $package->setWidth($volume['width']);  
+            $package->setDepth( $volume['depth']);
+            $quote_request->addPackage($package);
+        }
 
         $SDK = new SDK('242c5d6f05fd292bc91fd67170dc5a04');
         $cotafacil = $SDK->cotaFacilClient();			
