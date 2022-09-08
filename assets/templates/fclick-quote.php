@@ -66,21 +66,3 @@
     </form>
 
 </div>
-
-
-<div id="modal" class="popup-overlay">
-     <div class="popup-cover">
-          <div class="popup-header">
-               <div class="quote-num"></div>
-               <div class="close_pop"><span onclick="clouse_modal()">X</span></div>
-          </div>
-          
-          <div class="popup-section-qrap">
-               <div id="listing-quotes" class="popup-section"></div>
-          </div>
-          <!--end section-->
-          <div class="popup-footer">
-               <button id="btnclousemodal" onclick="clouse_modal()">RETORNAR AOS DADOS DA COTAÇÃO</button>
-          </div>
-     </div>
-</div>

@@ -135,11 +135,6 @@ function formatMask(){
     $('.product-cm').mask('##0,00', {reverse: true});
 }
 
-function addError(message){
-    $('#btnclousemodal').css('display', 'none')
-    add_carrier_quote_id(' Erro ao realizar cotação!')
-    return $('#listing-quotes').html('<div id="error-pop">' + message + '</div>')
-}
 
 function convert_kg(kg){
     return kg.replace(/[^0-9]/g, '' )/ 1000.0;
@@ -197,53 +192,6 @@ function enable_elements(){
     $('#product-depth').prop('disabled', false)
 
     remove_spin_input();
-}
-
-// Get people by id
-function getPeopleByID(id){
-
-    axios.get('https://api.freteclick.com.br/people/' + id, {
-        headers: {
-            'api-token': '242c5d6f05fd292bc91fd67170dc5a04'
-        }
-    })
-    .then((res) => {
-
-        var phone = res.data.phone[0].ddd.toString() + res.data.phone[0].phone.toString() + ' ';
-
-        $('#custumer-name').val(res.data.name);
-        $('#custumer-phone').val(phone.trim());
-
-        enable_elements();
-    })
-    .catch((error) => {
-        console.error(error)
-    })
-}
-
-// Get people id by e-mail
-function getPeopleIdByEmail() {
-
-    enable_elements();
-
-    axios.get("https://api.freteclick.com.br/email/find?email=" + $('#custumer-email').val())
-    .then(function (response) {
-        $.each(response.data, function (index, val) {
-
-            if(val.success === false){
-               console.log('Email invalido ou não cadastrado')
-            }else{
-                
-                return getPeopleByID( val['data']['people_id'] )
-            }
-            
-        })
-    })
-    .catch(function (error) {
-        console.error(error);
-        return null
-    })
-
 }
 
 // remove volume
@@ -404,13 +352,13 @@ function get_form_data(){
 }
 
 // Get packages
-function get_packages(){
+function getPackages(){
 
     const packages = [];
 
     $( ".form-volumes-item" ).each(function( index ) {
         packages.push({
-            'quantity': $(this).find('#quantity').val(),
+            'qtd': parseInt( $(this).find('#quantity').val() ),
             'weight': convert_kg( $(this).find('#weight').val() ),
             'width': convert_m( $(this).find('#width').val() ),
             'height': convert_m( $(this).find('#height').val() ),
@@ -420,55 +368,6 @@ function get_packages(){
     });
 
     return packages;
-}
-
-// Get quotes in ajax
-function get_quotes(){
-
-    $.ajax({
-        url: ajax_cotafacil.url,
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            'action': 'get_quotes',
-            'custumers': get_form_data(),
-            'packages': get_packages()
-        },            
-        success: function (request) {
-          
-            removeLoader()
-
-            res = JSON.parse(request);
-            console.log(res)
-
-            if(res.success === false){
-                addError(res.error.message)
-                show_modal()
-            }
-
-            if(res.response.success === false){
-
-                if(res.response.error === 'No results'){
-                    addError('<span>Nehum resultado foi encontrado</span>')
-                    show_modal()
-                }
-            }
-
-            add_carrier_quote_id(res.response.data.order.id)
-
-            $.each(res.response.data.order.quotes, function (index, val){
-                $('#listing-quotes').html(addCarrirToList(val['carrier']['image'], formatPrice(val['total']), val['retrieveDeadline'],  val['deliveryDeadline']));
-                show_modal()
-            });
-            
-       },
-        error: function (request, status, error) {
-            removeLoader() 
-            addError(request.responseText)
-            show_modal()
-        }
-    })
-
 }
 
 /**
@@ -510,8 +409,8 @@ jQuery(document).ready(function ($) {
     $('#btnquote').click(function (e) {
         e.preventDefault();
 
+        getQuotes();
         addLoader();
-        get_quotes();
 
     })
 

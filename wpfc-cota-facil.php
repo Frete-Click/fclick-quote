@@ -32,14 +32,16 @@ if(!class_exists('CotaFacil_Main')){
 
         private function __construct()
         {
-            require_once FCLICK_QUOTE_PATH . 'vendor/autoload.php';
             require_once FCLICK_QUOTE_PATH . 'includes/class-fclick-quote.php';
             
-            add_action('wp_enqueue_scripts', array('Quote', 'enqueue_scripts'));
             add_shortcode('wpfc-cota-facil', array('Quote', 'create_quote_page'));
 
-            add_action('wp_ajax_get_quotes', array('Quote', 'get_quotes'));
-            add_action('wp_ajax_nopriv_get_quotes', array('Quote', 'get_quotes'));
+            add_action('wp_footer', array('Quote', 'create_modal'));
+            add_action('wp_footer', array('Quote', 'create_popup'));
+
+            add_action('wp_enqueue_scripts', array('Quote', 'enqueue_scripts'));
+            //add_action('wp_ajax_get_quotes', array('Quote', 'get_quotes'));
+            //add_action('wp_ajax_nopriv_get_quotes', array('Quote', 'get_quotes'));
             
         }
 
