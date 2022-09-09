@@ -6,8 +6,6 @@ class Quote
     public function enqueue_scripts()
     {
         wp_enqueue_script('axios', 'https://unpkg.com/axios/dist/axios.min.js');
-        wp_enqueue_script('freteclick-api',  plugins_url('assets/js/fclick-api.js', plugin_dir_path(__FILE__) ));
-        wp_enqueue_script('fclick-popup', plugins_url('assets/js/fclick-popup.js', plugin_dir_path(__FILE__)));
         wp_enqueue_script('wpfc-cota-facil', plugins_url('assets/js/fclick-simulator.js', plugin_dir_path(__FILE__)), array('jquery'), null, true);
         wp_enqueue_script('jquery.mask', plugins_url('assets/js/jquery.mask.min.js', plugin_dir_path(__FILE__)), array('jquery'), null, true);
         
@@ -55,25 +53,5 @@ class Quote
         
         echo $html;
     }
-
-    public static function add_error($message, bool $success = false)
-    {
-        $data = array(
-            'error' => array (
-                'message' => $message
-            ),
-            'success' => $success
-        );
-
-        return wp_send_json(json_encode( $data ));
-
-    } 
-
-
-
-    public static function format_number($data)
-	{
-		return preg_replace("/[^0-9]/", "", $data);
-	}
 
 }
