@@ -539,30 +539,6 @@ function add_new_volume(){
 
 }
 
-// Get form values
-function get_form_data(){
-    const form_data = {
-        //cunstumer
-        'custumer-name': $('#custumer-name').val(),
-        'custumer-email': $('#custumer-email').val(),
-        'custumer-phone': $('#custumer-phone').val(),
-        
-        //address
-        'cep_retriver': $('#cep_retriver').val(),
-        'cep_delivery': $('#cep_delivery').val(),
-        
-        //packages types
-        'product-category': $('#product-category').val(),
-        'product-type': $('#product-type').val(),
-
-        'invoice-total':  convert_price( $('#product-invoice-total').val() )
-
-    }
-
-    return form_data;
-
-}
-
 // Get packages
 function getPackages(){
 
