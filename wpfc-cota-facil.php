@@ -34,11 +34,6 @@ if(!class_exists('CotaFacil_Main')){
         {
             require_once FCLICK_QUOTE_PATH . 'includes/class-fclick-quote.php';
             
-            add_action('wp_footer', array('Quote', 'create_modal'));
-            add_action('wp_footer', array('Quote', 'create_popup'));
-
-            add_action('wp_enqueue_scripts', array('Quote', 'enqueue_scripts'));
-
             add_shortcode('wpfc-cota-facil', array('Quote', 'create_quote_page'));
             
         }
